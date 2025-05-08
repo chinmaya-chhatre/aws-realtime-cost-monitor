@@ -4,7 +4,7 @@ import logging  # For logging info, errors, and debug statements
 from datetime import datetime  # To handle dates
 from calendar import monthrange  # To calculate the number of days in the current month
 
-# ✅ Configure logging: logs both to a file and console for visibility
+# Configure logging: logs both to a file and console for visibility
 logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s",
     level=logging.INFO,
@@ -14,11 +14,11 @@ logging.basicConfig(
     ]
 )
 
-# ✅ Initialize AWS service clients
+# Initialize AWS service clients
 ec2 = boto3.client("ec2")
 cost_explorer = boto3.client("ce")
 
-# ✅ Calculate date ranges
+# Calculate date ranges
 start_of_month = datetime(datetime.today().year, datetime.today().month, 1)
 current_date = datetime.today()
 days_in_month = monthrange(current_date.year, current_date.month)[1]
@@ -82,7 +82,7 @@ def get_ec2_instances(region):
             instance_type = instance["InstanceType"]
             state = instance["State"]["Name"]
 
-            # 🛠️ NOTE: Replace this with real pricing API for production use
+            # NOTE: Replace this with real pricing API for production use
             price_per_hour = 0.0116 if instance_type == "t2.micro" else 0.1216  
             
             # Calculate costs: accrued (so far) and full-month predicted
@@ -167,6 +167,6 @@ def main():
 
     logging.info("Cost prediction process completed.")
 
-# 🚀 Run the script if this file is executed directly
+# Run the script if this file is executed directly
 if __name__ == "__main__":
     main()
